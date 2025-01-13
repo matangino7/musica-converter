@@ -1,5 +1,7 @@
+from concurrent.futures import ThreadPoolExecutor
 from flask import Flask, request, jsonify
 from yt_dlp import YoutubeDL
+from typing import List
 
 app = Flask(__name__)
 
@@ -37,6 +39,31 @@ def get_youtube_urls():
         return jsonify(urls), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+
+def playwright(playlist_url: str) -> List[str]:
+    from bs4 import BeautifulSoup
+    import requests
+    import json
+
+    html_response = requests.get(playlist_url).text
+    soup = BeautifulSoup(html_response, "html.parser")
+    script_tag = soup.find('script', {'id': 'serialized-server-data'})
+    json_data = json.loads(script_tag.string)
+    song_titles = []
+
+    for section in json_data[0]['data']['sections']:
+        if section['itemKind'] == 'trackLockup':
+            for item in section['items']:
+                song_titles.append(item['title'])
+
+    with ThreadPoolExecutor() as executor:
+        results = executor.map(search_youtube, song_titles)
+        for url in results:
+            print(url)
+    
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    print(playwright('https://music.apple.com/il/playlist/ahalashirimbeanglit/pl.u-MDAWvegFWGKWkka'))
+    # app.run(debug=True, port=5000)
+        
