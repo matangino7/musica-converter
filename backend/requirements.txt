@@ -1,2 +1,7 @@
 flask
 yt_dlp
+concurrent
+typing
+bs4
+requests
+json
