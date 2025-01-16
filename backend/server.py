@@ -1,5 +1,10 @@
+from concurrent.futures import ThreadPoolExecutor
 from flask import Flask, request, jsonify
 from yt_dlp import YoutubeDL
+from typing import List, Dict
+from bs4 import BeautifulSoup
+import requests
+import json
 
 app = Flask(__name__)
 
@@ -26,17 +31,50 @@ def get_youtube_urls():
         if not data:
             return jsonify({'error': 'No data provided'}), 400
 
-        urls = []
-        for song_id, song_data in data.items():
-            song_name = song_data.get('attributes', {}).get('name')
-            if song_name:
-                url = search_youtube(song_name)
-                if url:
-                    urls.append({'song_id': song_id, 'url': url})
+        if data['type'] == 'apple':
+            music_data = extract_data_from_url(data['playlist_url'])
+        else:
+            return jsonify({'error': 'not supported'}), 200
 
-        return jsonify(urls), 200
+        return jsonify(music_data), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+def fetch_and_parse_playlist(playlist_url: str) -> List[Dict[str, str]]:
+    """Fetch HTML content and parse the playlist page."""
+    html_response = requests.get(playlist_url).text
+    soup = BeautifulSoup(html_response, "html.parser")
+    script_tag = soup.find('script', {'id': 'serialized-server-data'})
+    json_data = json.loads(script_tag.string)  # type: ignore
+    return json_data
+
+def extract_song_data(song_item: Dict) -> Dict[str, str]:
+    """Extract song data and perform YouTube search."""
+    return {
+        'name': song_item['title'],
+        'album_url': song_item['artwork']['dictionary']['url'].rsplit("/", 1)[0] + "/1000x1000.png",
+        'youtube_url': search_youtube(song_item['title'])
+    }
+
+def extract_data_from_url(playlist_url: str) -> List[Dict[str, str]]:
+    """Extract song data with threading."""
+    json_data = fetch_and_parse_playlist(playlist_url)
+    song_urls = []
+
+    all_song_items = [
+        item
+        for section in json_data[0]['data']['sections']
+        if section['itemKind'] == 'trackLockup'
+        for item in section['items']
+    ]
+
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        results = executor.map(extract_song_data, all_song_items)
+        song_urls.extend(results)
+
+    return song_urls
+    
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+    

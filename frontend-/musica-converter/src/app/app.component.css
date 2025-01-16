@@ -1,57 +1,47 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
-    text-align: center;
-}
-header {
-    background-color: #282c34;
-    padding: 20px 0;
-    color: white;
-}
-header h1 {
-    margin: 0;
-    font-size: 2.5em;
+/* Global styles for the responsive background */
+
+.svg-image {
+    display: block;
+    width: 100%; /* Fit the width to the screen */
+    height: auto; /* Maintain the aspect ratio */
 }
 
-.cta-button {
-    display: inline-block;
-    margin: 20px auto;
-    padding: 15px 30px;
-    background-color: #ff6f61;
-    color: white;
-    text-decoration: none;
-    font-size: 1.2em;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+div {
+    margin: -0.5rem;
 }
-.cta-button:hover {
-    background-color: #ff4f3a;
+
+/* Extra Small Devices (Phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .test {
+    }
 }
-.features {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
+
+/* Small Devices (Tablets, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .test {
+    }
 }
-.feature {
-    margin: 0 15px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    width: 200px;
+
+/* Medium Devices (Desktops, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .test {
+    }
 }
-.feature img {
-    max-width: 100%;
-    border-radius: 5px;
+
+/* Large Devices (Desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .test {
+    }
 }
-.feature h3 {
-    font-size: 1.5em;
-    margin-top: 10px;
+
+/* Extra Large Devices (1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    .test {
+    }
 }
-.feature p {
-    font-size: 0.9em;
-    color: #666;
+
+/* Ultra Large Devices (1400px and up) */
+@media (min-width: 1400px) {
+    .test {
+    }
 }
