@@ -6,9 +6,6 @@
     height: auto; /* Maintain the aspect ratio */
 }
 
-div {
-    margin: -0.5rem;
-}
 
 /* Extra Small Devices (Phones, less than 576px) */
 @media (max-width: 575.98px) {

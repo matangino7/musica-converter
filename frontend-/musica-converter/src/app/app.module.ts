@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { SpotifyButtonComponent } from './spotify-button/spotify-button.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
+import { AppleButtonComponent } from './apple-button/apple-button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SpotifyButtonComponent,
+    AppleButtonComponent,
   ],
   imports: [
     BrowserModule,
