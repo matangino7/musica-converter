@@ -17,7 +17,7 @@
     <h1>Hold Tight, This Process Could Take Up To 3 Minutes</h1>
     <mat-spinner></mat-spinner>
 </mat-card>
-<mat-card *ngIf="this.submit && this.playlist_data.length > 0">
+<mat-card *ngIf="this.submit && this.playlist_data.length > 0" style="height: 100vh;">
     <mat-card-content>
         <div *ngFor="let data of this.playlist_data" style="    display: flex;
         align-items: center;" class="load">
