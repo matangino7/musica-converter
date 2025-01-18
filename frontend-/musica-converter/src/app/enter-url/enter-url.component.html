@@ -18,11 +18,11 @@
     <mat-spinner></mat-spinner>
 </mat-card>
 <mat-card *ngIf="this.submit && this.playlist_data.length > 0" style="height: 100vh;">
-    <mat-card-content>
+    <mat-card-content style="background-color: #1C1436;">
         <div *ngFor="let data of this.playlist_data" style="    display: flex;
         align-items: center;" class="load">
-            <h1 style="margin-right: 3rem;">{{ data.name }}</h1>
-            <img [src]="data.album_url" style="width: 5rem;">
+            <img [src]="data.album_url" style="width: 5rem; margin-right: 3rem;">
+            <h1>{{ data.name }}</h1>
         </div>
     </mat-card-content>
 </mat-card>
