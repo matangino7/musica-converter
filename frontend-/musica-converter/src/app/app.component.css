@@ -1,9 +1,44 @@
 /* Global styles for the responsive background */
+.main {
+    background-color: #1C1436;
+    height: 300vh;
+    width: 100vw;
+}
 
-.svg-image {
-    display: block;
-    width: 100%; /* Fit the width to the screen */
-    height: auto; /* Maintain the aspect ratio */
+.header {
+    color: #FDFDFF;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 56px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%; /* 84px */
+    width: 833px;
+    height: 153px;
+    flex-shrink: 0;
+}
+
+.about {
+    color: #FDFDFF;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.center-head {
+    color: #FFF;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.navbar {
+    background-color: #1C1436;
 }
 
 

@@ -1,0 +1,19 @@
+.spotify-button {
+    background-color: #211833!important;
+    color: white!important;
+    font-family: Inter!important;
+    border-radius: 100px;
+    width: 66px;
+    height: 56px;
+    font-weight: 600;
+    border: solid 3px #6016D9;
+}
+
+.spotify-button:hover {
+    background-color: #6016D9!important;
+}
+
+.label {
+    display: flex!important;
+    place-items: center!important;
+}
