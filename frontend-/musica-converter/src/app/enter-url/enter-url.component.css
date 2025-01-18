@@ -1,0 +1,17 @@
+mat-card {
+    display: flex;
+    background-color: #1C1436;
+    justify-content: center;
+    align-items: center;
+}
+
+.load {
+    color: #FFF;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding: 2rem;
+}

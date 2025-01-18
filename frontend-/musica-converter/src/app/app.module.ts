@@ -9,6 +9,14 @@ import {MatButtonModule} from '@angular/material/button';
 import { AppleButtonComponent } from './apple-button/apple-button.component';
 import { AppleButtonTopComponent } from './apple-button-top/apple-button.component';
 import { SpotifyButtonTopComponent } from './spotify-button-top/spotify-button.component';
+import { EnterUrlComponent } from './enter-url/enter-url.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatCardModule} from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -16,13 +24,21 @@ import { SpotifyButtonTopComponent } from './spotify-button-top/spotify-button.c
     SpotifyButtonComponent,
     AppleButtonComponent,
     AppleButtonTopComponent,
-    SpotifyButtonTopComponent
-  ],
-  imports: [
+    SpotifyButtonTopComponent,
+    EnterUrlComponent,
+],
+imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatDialogModule,
+    MatCardModule,
+    MatInputModule,
+    MatIconModule,
+    FormsModule,
+    CommonModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

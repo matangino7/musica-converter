@@ -1,0 +1,28 @@
+<mat-card *ngIf="!this.submit">
+    <mat-card-content>
+        <form class="example-form">
+            <mat-form-field class="example-full-width" style="width: 30vw;">
+              <mat-label>Enter Playlist Url</mat-label>
+              <input [(ngModel)]="this.url" [ngModelOptions]="{standalone: true}" matInput placeholder="https://music.apple.com/...">
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-icon-button style="background-color: white;" (click)="submitUrl(this.url)">
+            <mat-icon>arrow_right_alt</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>
+<mat-card *ngIf="this.submit && this.playlist_data.length == 0" class="load">
+    <h1>Hold Tight, This Process Could Take Up To 3 Minutes</h1>
+    <mat-spinner></mat-spinner>
+</mat-card>
+<mat-card *ngIf="this.submit && this.playlist_data.length > 0">
+    <mat-card-content>
+        <div *ngFor="let data of this.playlist_data" style="    display: flex;
+        align-items: center;" class="load">
+            <h1 style="margin-right: 3rem;">{{ data.name }}</h1>
+            <img [src]="data.album_url" style="width: 5rem;">
+        </div>
+    </mat-card-content>
+</mat-card>
