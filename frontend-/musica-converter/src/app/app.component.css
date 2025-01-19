@@ -2,7 +2,8 @@
 .main {
     background-color: #1C1436;
     height: 300vh;
-    width: 100vw;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .header {
