@@ -1,9 +1,8 @@
-<nav class="navbar navbar-light" style="background-color: #0f0b1d;">
+<nav class="navbar navbar-light">
     <a class="navbar-brand" href="#">
-      <img src="../assets/logo.svg" width="" height="30" class="d-inline-block align-top" alt="" style="width: 10rem;
-    margin-left: 2rem;">
+      <img class="top-image" src="../assets/logo.svg" width="" height="30" class="d-inline-block align-top" alt="">
     </a>
-    <ul class="nav justify-content-center">
+    <ul class="nav justify-content-center phone-hidden">
         <li class="nav-item">
             <a class="nav-link active about" href="#">About Us</a>
         </li>
@@ -11,7 +10,7 @@
             <a class="nav-link active about" href="#">Pricing</a>
         </li>
     </ul>
-    <ul class="nav justify-content-center" style="margin-left: 5rem;">
+    <ul class="nav justify-content-center phone-hidden" style="margin-left: 5rem;">
         <li class="nav-item">
           <app-apple-button-top></app-apple-button-top>
         </li>
@@ -22,42 +21,32 @@
 </nav>
 <div class="main">
     <div class="row head">
-        <div class="col" style="    height: 90vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;">
-            <div class="row" style="display: flex;justify-content: center;">
-                <div class="col" style="display: flex;justify-content: center;  margin-bottom: 3rem;">
+        <div class="col col-head">
+            <div class="row flex-content">
+                <div class="col flex-content" style="margin-bottom: 3rem;">
                     <h1 class="header">Convert Spotify And Apple Playlists to YouTube Urls</h1>
             </div>
-            <div class="row">
-                <div class="col" style="display: flex;justify-content: flex-end;"><app-apple-button></app-apple-button></div>
-                <div class="col"><app-spotify-button></app-spotify-button></div>
+            <div class="row button-row-phone">
+                <div class="col flex-end apple-button-phone"><app-apple-button></app-apple-button></div>
+                <div class="col flex-spotify"><app-spotify-button></app-spotify-button></div>
             </div>
         </div>
     </div>
-    <div class="row center">
+    <div class="row center phone-hidden">
         <div class="col">
-            <div class="row" style="height: 60vh;">
-                <div class="col" style="justify-content: center; display: flex;">
-                    <img src="../assets/main-frame.svg" style="width: 75vw;">
+            <div class="row height-60">
+                <div class="col flex-content">
+                    <img class="mid-img" src="../assets/main-frame.svg">
                 </div>
             </div>
-            <div class="row" style="height: 40vh;
-            display: flex;
-            align-content: center;">
+            <div class="row how-it-works">
                 <h1 class="center-head">How It Works</h1>
             </div>
-            <div class="row" style="height: 60vh;">
-                <div class="col" style="justify-content: center; display: flex;">
-                    <img src="../assets/center-diagram.svg" style="width: 60vw;">
+            <div class="row height-60">
+                <div class="col flex-content">
+                    <img class="bottom-img" src="../assets/center-diagram.svg">
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row bottom">
-        <div class="col">
-
         </div>
     </div>
 </div>

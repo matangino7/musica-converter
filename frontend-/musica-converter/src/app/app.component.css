@@ -1,80 +1,517 @@
 /* Global styles for the responsive background */
-.main {
-    background-color: #1C1436;
-    height: 300vh;
-    width: 100%;
-    overflow-x: hidden;
-}
-
-.header {
-    color: #FDFDFF;
-    text-align: center;
-    font-family: Montserrat;
-    font-size: 56px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 150%; /* 84px */
-    width: 833px;
-    height: 153px;
-    flex-shrink: 0;
-}
-
-.about {
-    color: #FDFDFF;
-    font-family: Montserrat;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-
-.center-head {
-    color: #FFF;
-    text-align: center;
-    font-family: Montserrat;
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-}
-
 .navbar {
-    background-color: #1C1436;
+    background-color: #0f0b1d !important;
 }
+
 
 
 /* Extra Small Devices (Phones, less than 576px) */
 @media (max-width: 575.98px) {
-    .test {
+    .main {
+        background-color: #1C1436;
+        height: fit-content;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .header {
+        color: #FDFDFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size: 56px;
+        font-weight: 700;
+        line-height: 150%; /* 84px */
+        width: 833px;
+        height: 153px;
+        flex-shrink: 0;
+        display: contents;
+        font-size: -webkit-xxx-large;
+    }
+    
+    .about {
+        color: #FDFDFF;
+        font-family: Montserrat;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+    
+    .center-head {
+        color: #FFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+    
+    .top-image {
+        width: 10rem;
+        margin-left: 2rem;
+    }
+    
+    .col-head {
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .mid-img {
+        width: 75vw;
+    }
+    
+    .flex-content {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .flex-end {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .bottom-img {
+        width: 60vw
+    }
+    
+    .height-60 {
+        height: 60vh;
+    }
+    
+    .how-it-works {
+        height: 40vh;
+        display: flex;
+        align-content: center;
+    }
+
+    .flex-spotify {
+        display: flex;
+        justify-content: center;
+    }
+
+    .button-row-phone {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .apple-button-phone {
+        margin-bottom: 1rem;
+    }
+
+    .phone-hidden {
+        display: none;
     }
 }
 
 /* Small Devices (Tablets, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
-    .test {
+    .main {
+        background-color: #1C1436;
+        height: 300vh;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .header {
+        color: #FDFDFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size: 56px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 150%; /* 84px */
+        width: 833px;
+        height: 153px;
+        flex-shrink: 0;
+    }
+    
+    .about {
+        color: #FDFDFF;
+        font-family: Montserrat;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+    
+    .center-head {
+        color: #FFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+    
+    .top-image {
+        width: 10rem;
+        margin-left: 2rem;
+    }
+    
+    .col-head {
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .mid-img {
+        width: 75vw;
+    }
+    
+    .flex-content {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .flex-end {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .bottom-img {
+        width: 60vw
+    }
+    
+    .height-60 {
+        height: 60vh;
+    }
+    
+    .how-it-works {
+        height: 40vh;
+        display: flex;
+        align-content: center;
     }
 }
 
 /* Medium Devices (Desktops, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
-    .test {
+    .main {
+        background-color: #1C1436;
+        height: 300vh;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .header {
+        color: #FDFDFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size: 56px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 150%; /* 84px */
+        width: 833px;
+        height: 153px;
+        flex-shrink: 0;
+    }
+    
+    .about {
+        color: #FDFDFF;
+        font-family: Montserrat;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+    
+    .center-head {
+        color: #FFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+    
+    .top-image {
+        width: 10rem;
+        margin-left: 2rem;
+    }
+    
+    .col-head {
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .mid-img {
+        width: 75vw;
+    }
+    
+    .flex-content {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .flex-end {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .bottom-img {
+        width: 60vw
+    }
+    
+    .height-60 {
+        height: 60vh;
+    }
+    
+    .how-it-works {
+        height: 40vh;
+        display: flex;
+        align-content: center;
     }
 }
 
 /* Large Devices (Desktops, 992px and up) */
 @media (min-width: 992px) and (max-width: 1199.98px) {
-    .test {
+    .main {
+        background-color: #1C1436;
+        height: 300vh;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .header {
+        color: #FDFDFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size: 56px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 150%; /* 84px */
+        width: 833px;
+        height: 153px;
+        flex-shrink: 0;
+    }
+    
+    .about {
+        color: #FDFDFF;
+        font-family: Montserrat;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+    
+    .center-head {
+        color: #FFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+    
+    .top-image {
+        width: 10rem;
+        margin-left: 2rem;
+    }
+    
+    .col-head {
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .mid-img {
+        width: 75vw;
+    }
+    
+    .flex-content {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .flex-end {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .bottom-img {
+        width: 60vw
+    }
+    
+    .height-60 {
+        height: 60vh;
+    }
+    
+    .how-it-works {
+        height: 40vh;
+        display: flex;
+        align-content: center;
     }
 }
 
 /* Extra Large Devices (1200px and up) */
 @media (min-width: 1200px) and (max-width: 1399.98px) {
-    .test {
+    .main {
+        background-color: #1C1436;
+        height: 300vh;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .header {
+        color: #FDFDFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size: 56px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 150%; /* 84px */
+        width: 833px;
+        height: 153px;
+        flex-shrink: 0;
+    }
+    
+    .about {
+        color: #FDFDFF;
+        font-family: Montserrat;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+    
+    .center-head {
+        color: #FFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+    
+    .top-image {
+        width: 10rem;
+        margin-left: 2rem;
+    }
+    
+    .col-head {
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .mid-img {
+        width: 75vw;
+    }
+    
+    .flex-content {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .flex-end {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .bottom-img {
+        width: 60vw
+    }
+    
+    .height-60 {
+        height: 60vh;
+    }
+    
+    .how-it-works {
+        height: 40vh;
+        display: flex;
+        align-content: center;
     }
 }
 
 /* Ultra Large Devices (1400px and up) */
 @media (min-width: 1400px) {
-    .test {
+    .main {
+        background-color: #1C1436;
+        height: 300vh;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .header {
+        color: #FDFDFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size: 56px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 150%; /* 84px */
+        width: 833px;
+        height: 153px;
+        flex-shrink: 0;
+    }
+    
+    .about {
+        color: #FDFDFF;
+        font-family: Montserrat;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+    
+    .center-head {
+        color: #FFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+    
+    .top-image {
+        width: 10rem;
+        margin-left: 2rem;
+    }
+    
+    .col-head {
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .mid-img {
+        width: 75vw;
+    }
+    
+    .flex-content {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .flex-end {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .bottom-img {
+        width: 60vw
+    }
+    
+    .height-60 {
+        height: 60vh;
+    }
+    
+    .how-it-works {
+        height: 40vh;
+        display: flex;
+        align-content: center;
     }
 }

@@ -1,0 +1,11 @@
+<div>
+    <mat-card *ngFor="let playlist of playlistData">
+        <mat-card-header> {{ playlist.playlistName }}</mat-card-header>
+        <mat-card-content>
+            <div *ngFor="let data of playlist.data">
+                {{ data.track.name }}
+                <img [src]="data.track.album.images[0].url">
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -17,6 +17,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { HttpClientModule } from '@angular/common/http';
+import { SpotifyPlaylistsComponent } from './spotify-playlists/spotify-playlists.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     AppleButtonTopComponent,
     SpotifyButtonTopComponent,
     EnterUrlComponent,
+    SpotifyPlaylistsComponent,
 ],
 imports: [
     BrowserModule,
@@ -39,6 +42,7 @@ imports: [
     FormsModule,
     CommonModule,
     MatProgressSpinnerModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
