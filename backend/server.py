@@ -34,12 +34,28 @@ def get_youtube_urls():
             return jsonify({'error': 'No data provided'}), 400
 
         if data['type'] == 'apple':
-            music_data = extract_data_from_url(data['playlist_url'])
-            # music_data = [{
-            #     'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
-            #     'name': 'kljdslkjlkdjs',
-            #     'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
-            # }]
+            # music_data = extract_data_from_url(data['playlist_url'])
+            music_data = [{
+                'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
+                'name': 'kljdslkjlkdjs',
+                'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
+            }, {
+                'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
+                'name': 'kljdslkjlkdjs',
+                'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
+            }, {
+                'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
+                'name': 'kljdslkjlkdjs',
+                'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
+            }, {
+                'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
+                'name': 'kljdslkjlkdjs',
+                'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
+            }, {
+                'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
+                'name': 'kljdslkjlkdjs',
+                'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
+            }]
         else:
             return jsonify({'error': 'not supported'}), 200
 

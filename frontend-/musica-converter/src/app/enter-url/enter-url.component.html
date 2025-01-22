@@ -1,4 +1,4 @@
-<mat-card *ngIf="!this.submit">
+<mat-card *ngIf="!this.submit" style="background-color: #1C1436;">
     <mat-card-content>
         <form class="example-form">
             <mat-form-field class="example-full-width" style="width: 30vw;">
@@ -13,16 +13,18 @@
         </button>
     </mat-card-actions>
 </mat-card>
-<mat-card *ngIf="this.submit && this.playlist_data.length == 0" class="load">
+<mat-card style="background-color: #1C1436;" *ngIf="this.submit && this.playlist_data.length == 0" class="load">
     <h1>Hold Tight, This Process Could Take Up To 3 Minutes</h1>
     <mat-spinner></mat-spinner>
 </mat-card>
-<mat-card *ngIf="this.submit && this.playlist_data.length > 0" style="height: 100vh;">
+<mat-card *ngIf="this.submit && this.playlist_data.length > 0" style="height: 100vh; background-color: #1C1436; justify-content: flex-start;">
     <mat-card-content style="background-color: #1C1436;">
-        <div *ngFor="let data of this.playlist_data" style="    display: flex;
-        align-items: center;" class="load">
+        <mat-card *ngFor="let data of this.playlist_data" style="display: flex; flex-direction: row; background-color: #0f0b1d;border-radius: 45px; margin-bottom: 1rem;" class="load">
             <img [src]="data.album_url" style="width: 5rem; margin-right: 3rem;">
-            <h1>{{ data.name }}</h1>
-        </div>
+            <div class="main-text">
+                <h1>{{ data.name }}</h1>
+                <a [href]="data.youtube_url">Open In Youtube</a>
+            </div>
+        </mat-card>
     </mat-card-content>
 </mat-card>

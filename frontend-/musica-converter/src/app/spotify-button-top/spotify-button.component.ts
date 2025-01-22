@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import { EnterUrlComponent } from '../enter-url/enter-url.component';
+import { SpotifyAuthService } from '../spotify-auth.service';
 
 @Component({
   selector: 'app-spotify-button-top',
@@ -8,12 +7,9 @@ import { EnterUrlComponent } from '../enter-url/enter-url.component';
   styleUrls: ['./spotify-button.component.css']
 })
 export class SpotifyButtonTopComponent {
-    constructor (public MatDialog: MatDialog) {}
+  constructor(private spotifyAuth: SpotifyAuthService) {}
 
-  openDialog() {
-    const dialogRef = this.MatDialog.open(EnterUrlComponent);
-
-    dialogRef.afterClosed().subscribe();
+  login(): void {
+      window.location.href = this.spotifyAuth.getAuthUrl();
   }
-
 }

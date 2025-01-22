@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { EnterUrlComponent } from '../enter-url/enter-url.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-apple-button',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./apple-button.component.css']
 })
 export class AppleButtonComponent {
+  constructor (public MatDialog: MatDialog) {}
 
+  openDialog() {
+    const dialogRef = this.MatDialog.open(EnterUrlComponent);
+
+    dialogRef.afterClosed().subscribe();
+  }
 }

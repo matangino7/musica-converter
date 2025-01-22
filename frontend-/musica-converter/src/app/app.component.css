@@ -110,7 +110,7 @@
 @media (min-width: 576px) and (max-width: 767.98px) {
     .main {
         background-color: #1C1436;
-        height: 300vh;
+        height: 301vh;
         width: 100%;
         overflow-x: hidden;
     }
@@ -192,7 +192,7 @@
 @media (min-width: 768px) and (max-width: 991.98px) {
     .main {
         background-color: #1C1436;
-        height: 300vh;
+        height: 301vh;
         width: 100%;
         overflow-x: hidden;
     }
@@ -274,7 +274,7 @@
 @media (min-width: 992px) and (max-width: 1199.98px) {
     .main {
         background-color: #1C1436;
-        height: 300vh;
+        height: 301vh;
         width: 100%;
         overflow-x: hidden;
     }
@@ -356,7 +356,7 @@
 @media (min-width: 1200px) and (max-width: 1399.98px) {
     .main {
         background-color: #1C1436;
-        height: 300vh;
+        height: 301vh;
         width: 100%;
         overflow-x: hidden;
     }
@@ -438,7 +438,7 @@
 @media (min-width: 1400px) {
     .main {
         background-color: #1C1436;
-        height: 300vh;
+        height: 301vh;
         width: 100%;
         overflow-x: hidden;
     }

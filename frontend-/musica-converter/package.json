@@ -22,7 +22,9 @@
     "@angular/router": "^16.2.0",
     "bootstrap": "^5.3.3",
     "rxjs": "~7.8.0",
+    "stream": "^0.0.3",
     "tslib": "^2.3.0",
+    "ytdl-core": "^4.11.5",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
