@@ -11,7 +11,7 @@ export class AppleButtonComponent {
   constructor (public MatDialog: MatDialog) {}
 
   openDialog() {
-    const dialogRef = this.MatDialog.open(EnterUrlComponent);
+    const dialogRef = this.MatDialog.open(EnterUrlComponent, {disableClose: true});
 
     dialogRef.afterClosed().subscribe();
   }

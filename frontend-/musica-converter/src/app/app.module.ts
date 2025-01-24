@@ -19,6 +19,11 @@ import {CommonModule} from '@angular/common';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { SpotifyPlaylistsComponent } from './spotify-playlists/spotify-playlists.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
+import { NgxPayPalModule } from 'ngx-paypal';
+import { PaypalComponent } from './paypal/paypal.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +34,7 @@ import { SpotifyPlaylistsComponent } from './spotify-playlists/spotify-playlists
     SpotifyButtonTopComponent,
     EnterUrlComponent,
     SpotifyPlaylistsComponent,
+    PaypalComponent,
 ],
 imports: [
     BrowserModule,
@@ -43,6 +49,10 @@ imports: [
     CommonModule,
     MatProgressSpinnerModule,
     HttpClientModule,
+    MatStepperModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    NgxPayPalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

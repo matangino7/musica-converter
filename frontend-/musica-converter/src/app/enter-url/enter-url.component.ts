@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-enter-url',
@@ -6,8 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./enter-url.component.css']
 })
 export class EnterUrlComponent {
+    constructor(public matDialog: MatDialog) {}
     url: string = ''
-    playlist_data:  {album_url: string, name: string, youtube_url: string}[] = [];
+    playlist_data:  {album_url: string, name: string, youtube_url: string, download_url: any}[] = [];
     submit: boolean = false;
 
     submitUrl(url: string) {

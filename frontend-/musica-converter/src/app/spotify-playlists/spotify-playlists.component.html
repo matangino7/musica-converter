@@ -1,11 +1,30 @@
 <div>
-    <mat-card *ngFor="let playlist of playlistData">
-        <mat-card-header> {{ playlist.playlistName }}</mat-card-header>
-        <mat-card-content>
-            <div *ngFor="let data of playlist.data">
-                {{ data.track.name }}
-                <img [src]="data.track.album.images[0].url">
+    <mat-stepper [linear]="true" >
+        <mat-step>
+            <ng-template matStepLabel>Select One Playlist To Convert</ng-template>
+            <mat-radio-group [(ngModel)]="checkedRadio">
+            <mat-card *ngFor="let data of this.playlistData" style="display: flex; flex-direction: row;border-radius: 45px; margin-bottom: 1rem;background-color: #673ab7; justify-content: flex-start;" class="load">
+                <img [src]="data.playlistImg" style="width: 5rem; margin-right: 3rem;">
+                <div class="main-text">
+                    <h1>{{ data.playlistName }}</h1>
+                    <mat-radio-button [value]="data"></mat-radio-button>
+                </div>
+            </mat-card>
+            </mat-radio-group>
+            <div>
+                <button mat-icon-button matStepperNext [disabled]="!checkedRadio">
+                    <mat-icon>arrow_right_alt</mat-icon>
+                </button>
+                <div style="width: 1rem;"></div>
+                <button mat-icon-button style="background-color: white;" (click)="matDialog.closeAll()">
+                    <mat-icon>close</mat-icon>
+                </button>
             </div>
-        </mat-card-content>
-    </mat-card>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Checkout</ng-template>
+            <h1 *ngIf="!checkedRadio">No playlist Selected</h1>
+            <app-paypal *ngIf="checkedRadio"></app-paypal>
+        </mat-step>
+    </mat-stepper>
 </div>

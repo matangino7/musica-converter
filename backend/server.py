@@ -10,7 +10,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-def search_youtube(query):
+def search_youtube(query) -> str:
     """
     Searches YouTube and returns the URL of the first result.
     """
@@ -34,28 +34,28 @@ def get_youtube_urls():
             return jsonify({'error': 'No data provided'}), 400
 
         if data['type'] == 'apple':
-            # music_data = extract_data_from_url(data['playlist_url'])
-            music_data = [{
-                'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
-                'name': 'kljdslkjlkdjs',
-                'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
-            }, {
-                'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
-                'name': 'kljdslkjlkdjs',
-                'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
-            }, {
-                'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
-                'name': 'kljdslkjlkdjs',
-                'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
-            }, {
-                'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
-                'name': 'kljdslkjlkdjs',
-                'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
-            }, {
-                'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
-                'name': 'kljdslkjlkdjs',
-                'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
-            }]
+            music_data = extract_data_from_url(data['playlist_url'])
+            # music_data = [{
+            #     'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
+            #     'name': 'kljdslkjlkdjs',
+            #     'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
+            # }, {
+            #     'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
+            #     'name': 'kljdslkjlkdjs',
+            #     'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
+            # }, {
+            #     'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
+            #     'name': 'kljdslkjlkdjs',
+            #     'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
+            # }, {
+            #     'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
+            #     'name': 'kljdslkjlkdjs',
+            #     'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
+            # }, {
+            #     'album_url': "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/4f/a7/ad4fa736-cf9b-ea9d-9712-cf0029dde3b3/772532150620_cover.jpg/1000x1000.png",
+            #     'name': 'kljdslkjlkdjs',
+            #     'youtube_url': "https://www.youtube.com/watch?v=1LvmC53OukU"
+            # }]
         else:
             return jsonify({'error': 'not supported'}), 200
 
@@ -73,10 +73,16 @@ def fetch_and_parse_playlist(playlist_url: str) -> List[Dict[str, str]]:
 
 def extract_song_data(song_item: Dict) -> Dict[str, str]:
     """Extract song data and perform YouTube search."""
+    youtube_url = search_youtube(song_item['title'])
+    if not youtube_url:
+        return
+    download_url = get_downloadable_link(youtube_url.split('=')[1])
+
     return {
         'name': song_item['title'],
         'album_url': song_item['artwork']['dictionary']['url'].rsplit("/", 1)[0] + "/1000x1000.png",
-        'youtube_url': search_youtube(song_item['title'])
+        'youtube_url': youtube_url,
+        'download_url': download_url
     }
 
 def extract_data_from_url(playlist_url: str) -> List[Dict[str, str]]:
@@ -96,7 +102,24 @@ def extract_data_from_url(playlist_url: str) -> List[Dict[str, str]]:
         song_urls.extend(results)
 
     return song_urls
+
+def get_downloadable_link(id: str):
+    import http.client
+
+    conn = http.client.HTTPSConnection("youtube-mp3-download1.p.rapidapi.com")
+
+    headers = {
+        'x-rapidapi-key': "642ce14f5bmsha46bac10deaafe2p1a317djsn5644bee15cd8",
+        'x-rapidapi-host': "youtube-mp3-download1.p.rapidapi.com"
+    }
+
+    conn.request("GET", f"/dl?id={id}", headers=headers)
+
+    res = conn.getresponse()
+    data = res.read()
+
+    return json.loads(data.decode("utf-8"))
     
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)    
+    app.run(debug=True, port=5000) 

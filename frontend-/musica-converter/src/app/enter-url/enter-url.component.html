@@ -11,6 +11,10 @@
         <button mat-icon-button style="background-color: white;" (click)="submitUrl(this.url)">
             <mat-icon>arrow_right_alt</mat-icon>
         </button>
+        <div style="width: 1rem;"></div>
+        <button mat-icon-button style="background-color: white;" (click)="matDialog.closeAll()">
+            <mat-icon>close</mat-icon>
+        </button>
     </mat-card-actions>
 </mat-card>
 <mat-card style="background-color: #1C1436;" *ngIf="this.submit && this.playlist_data.length == 0" class="load">
@@ -24,6 +28,9 @@
             <div class="main-text">
                 <h1>{{ data.name }}</h1>
                 <a [href]="data.youtube_url">Open In Youtube</a>
+                <a [href]="data.download_url.link">
+                    <button mat-icon-button ><mat-icon>cloud_download</mat-icon></button>
+                </a>
             </div>
         </mat-card>
     </mat-card-content>
