@@ -1,5 +1,5 @@
-<div>
-    <mat-stepper [linear]="true" >
+<mat-dialog-content>
+    <mat-stepper [linear]="true">
         <mat-step>
             <ng-template matStepLabel>Select One Playlist To Convert</ng-template>
             <mat-radio-group [(ngModel)]="checkedRadio">
@@ -13,7 +13,7 @@
             </mat-radio-group>
             <div>
                 <button mat-icon-button matStepperNext [disabled]="!checkedRadio">
-                    <mat-icon>arrow_right_alt</mat-icon>
+                    <mat-icon>arrow_right</mat-icon>
                 </button>
                 <div style="width: 1rem;"></div>
                 <button mat-icon-button style="background-color: white;" (click)="matDialog.closeAll()">
@@ -25,6 +25,19 @@
             <ng-template matStepLabel>Checkout</ng-template>
             <h1 *ngIf="!checkedRadio">No playlist Selected</h1>
             <app-paypal *ngIf="checkedRadio"></app-paypal>
+            <div>
+                <button mat-icon-button matStepperNext [disabled]="!checkedRadio">
+                    <mat-icon>arrow_right</mat-icon>
+                </button>
+                <div style="width: 1rem;"></div>
+                <button mat-icon-button matStepperPrevious [disabled]="!checkedRadio">
+                    <mat-icon>arrow_left</mat-icon>
+                </button>
+                <div style="width: 1rem;"></div>
+                <button mat-icon-button style="background-color: white;" (click)="matDialog.closeAll()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
         </mat-step>
     </mat-stepper>
-</div>
+</mat-dialog-content>

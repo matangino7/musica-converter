@@ -15,6 +15,8 @@ export class SpotifyPlaylistsComponent implements OnInit {
     checkedRadio: any;
 
     async ngOnInit(): Promise<void> {
+        console.log(this.accessToken);
+        
         this.spotifyService.getUserPlaylists(this.accessToken).subscribe(async data => {
             this.playlists = data.items
             for (const playlist of this.playlists ) {

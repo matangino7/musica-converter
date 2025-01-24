@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     openDialog(token: string) {
         const dialogRef = this.MatDialog.open(SpotifyPlaylistsComponent, {
             data: {accessToken: token},
-            disableClose: true
+            disableClose: true,
         });
         dialogRef.afterClosed().subscribe();
     }
