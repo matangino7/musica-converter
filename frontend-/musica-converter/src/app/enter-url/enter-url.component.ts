@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatStepper } from '@angular/material/stepper';
+
 
 @Component({
   selector: 'app-enter-url',
@@ -11,6 +13,7 @@ export class EnterUrlComponent {
     url: string = ''
     playlist_data:  {album_url: string, name: string, youtube_url: string, download_url: any}[] = [];
     submit: boolean = false;
+    @ViewChild('stepper') private myStepper!: MatStepper;
 
     submitUrl(url: string) {
         this.submit = true;
@@ -24,11 +27,15 @@ export class EnterUrlComponent {
             if (response.ok) {
                 response.json().then(data => {
                     this.playlist_data = data;
+                    setTimeout(() => {
+                        this.myStepper.next();
+                    }, 2000)
                 })
             }
         }).catch(err => {
             this.submit = false;
             this.playlist_data = [];
+            this.myStepper.previous();
         })
     }
 }

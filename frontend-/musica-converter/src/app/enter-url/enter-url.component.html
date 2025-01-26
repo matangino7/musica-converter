@@ -1,37 +1,46 @@
-<mat-card *ngIf="!this.submit" style="background-color: #1C1436;">
-    <mat-card-content>
-        <form class="example-form">
-            <mat-form-field class="example-full-width" style="width: 30vw;">
-              <mat-label>Enter Playlist Url</mat-label>
-              <input [(ngModel)]="this.url" [ngModelOptions]="{standalone: true}" matInput placeholder="https://music.apple.com/...">
-            </mat-form-field>
-        </form>
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-icon-button style="background-color: white;" (click)="submitUrl(this.url)">
-            <mat-icon>arrow_right_alt</mat-icon>
-        </button>
-        <div style="width: 1rem;"></div>
-        <button mat-icon-button style="background-color: white;" (click)="matDialog.closeAll()">
-            <mat-icon>close</mat-icon>
-        </button>
-    </mat-card-actions>
-</mat-card>
-<mat-card style="background-color: #1C1436;" *ngIf="this.submit && this.playlist_data.length == 0" class="load">
-    <h1>Hold Tight, This Process Could Take Up To 3 Minutes</h1>
-    <mat-spinner></mat-spinner>
-</mat-card>
-<mat-card *ngIf="this.submit && this.playlist_data.length > 0" style="height: 100vh; background-color: #1C1436; justify-content: flex-start;">
-    <mat-card-content style="background-color: #1C1436;">
-        <mat-card *ngFor="let data of this.playlist_data" style="display: flex; flex-direction: row; background-color: #0f0b1d;border-radius: 45px; margin-bottom: 1rem;" class="load">
-            <img [src]="data.album_url" style="width: 5rem; margin-right: 3rem;">
-            <div class="main-text">
-                <h1>{{ data.name }}</h1>
-                <a [href]="data.youtube_url">Open In Youtube</a>
-                <a [href]="data.download_url.link">
-                    <button mat-icon-button ><mat-icon>cloud_download</mat-icon></button>
-                </a>
-            </div>
-        </mat-card>
-    </mat-card-content>
-</mat-card>
+<mat-stepper #stepper [linear]="true">
+    <mat-step>
+        <ng-template matStepLabel>Enter Playlist Url To Convert</ng-template>
+        <mat-card-content>
+            <form class="example-form">
+                <mat-form-field class="example-full-width" style="width: 30vw;">
+                  <mat-label>Enter Playlist Url</mat-label>
+                  <input [(ngModel)]="this.url" [ngModelOptions]="{standalone: true}" matInput placeholder="https://music.apple.com/...">
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-icon-button matStepperNext style="background-color: white;" (click)="submitUrl(this.url)">
+                <mat-icon>arrow_right_alt</mat-icon>
+            </button>
+            <div style="width: 1rem;"></div>
+            <button mat-icon-button style="background-color: white;" (click)="matDialog.closeAll()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-card-actions>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Waiting For Server To Process</ng-template>
+        <div *ngIf="this.playlist_data.length <= 0">
+            <mat-spinner style="justify-self: center;"></mat-spinner>
+        </div>
+        <div *ngIf="this.playlist_data.length > 0">
+            <h3 style="justify-self: center;">Finished Process, Moving To Next Page...</h3>
+        </div>
+    </mat-step>
+    
+    <mat-step *ngIf="this.playlist_data.length > 0">
+        <ng-template matStepLabel>Enjoy</ng-template>
+            <mat-card *ngFor="let data of this.playlist_data" style="display: flex; flex-direction: row; background-color: #0f0b1d;border-radius: 45px; margin-bottom: 1rem;" class="load">
+                <img [src]="data.album_url" style="width: 5rem; margin-right: 3rem;">
+                <div class="main-text">
+                    <h1>{{ data.name }}</h1>
+                    <a [href]="data.youtube_url">Open In Youtube</a>
+                    <a [href]="data.download_url.link">
+                        <button mat-icon-button ><mat-icon>cloud_download</mat-icon></button>
+                    </a>
+                </div>
+            </mat-card>
+    </mat-step>
+</mat-stepper>
