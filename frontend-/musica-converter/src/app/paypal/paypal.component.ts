@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 
 @Component({
@@ -8,6 +8,11 @@ import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 })
 export class PaypalComponent implements OnInit {
   public payPalConfig?: IPayPalConfig;
+  @Output() onClientAuthorization = new EventEmitter<any>();
+  @Output() onApprove = new EventEmitter<any>();
+  @Output() onCancel = new EventEmitter<any>();
+  @Output() onError = new EventEmitter<any>();
+  @Output() onClick = new EventEmitter<any>();
 
   ngOnInit(): void {
     this.initConfig();
@@ -53,25 +58,21 @@ export class PaypalComponent implements OnInit {
         layout: 'vertical', // Layout options: "vertical" | "horizontal"
       },
       onApprove: (data, actions) => {
-        console.log(
-          'Transaction approved but not authorized yet. Transaction details:',
-          data
-        );
         actions.order.get().then((details: any) => {
-          console.log('Full order details:', details);
+          this.onApprove.emit([data, details]);
         });
       },
       onClientAuthorization: (data) => {
-        console.log('Transaction completed and authorized:', data);
+        this.onClientAuthorization.emit(data);
       },
       onCancel: (data, actions) => {
-        console.log('Transaction canceled:', data);
+        this.onCancel.emit(data);
       },
       onError: (err) => {
-        console.error('PayPal error:', err);
+        this.onError.emit(err);
       },
       onClick: (data, actions) => {
-        console.log('PayPal button clicked');
+        this.onError.emit(data);
       },
     };
   }

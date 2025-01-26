@@ -20,7 +20,7 @@
         </mat-card-actions>
     </mat-step>
 
-    <mat-step>
+    <mat-step [completed]="this.playlist_data.length > 0">
         <ng-template matStepLabel>Waiting For Server To Process</ng-template>
         <div *ngIf="this.playlist_data.length <= 0">
             <mat-spinner style="justify-self: center;"></mat-spinner>
@@ -30,17 +30,23 @@
         </div>
     </mat-step>
     
-    <mat-step *ngIf="this.playlist_data.length > 0">
-        <ng-template matStepLabel>Enjoy</ng-template>
-            <mat-card *ngFor="let data of this.playlist_data" style="display: flex; flex-direction: row; background-color: #0f0b1d;border-radius: 45px; margin-bottom: 1rem;" class="load">
-                <img [src]="data.album_url" style="width: 5rem; margin-right: 3rem;">
-                <div class="main-text">
-                    <h1>{{ data.name }}</h1>
-                    <a [href]="data.youtube_url">Open In Youtube</a>
-                    <a [href]="data.download_url.link">
-                        <button mat-icon-button ><mat-icon>cloud_download</mat-icon></button>
-                    </a>
-                </div>
-            </mat-card>
+    <mat-step>
+        <div>
+            <ng-template matStepLabel>Checkout</ng-template>
+            <app-paypal (onClientAuthorization)="paymentSuccess($event)"></app-paypal>
+        </div>
+        <div *ngIf="paymentSuccessful">
+            <ng-template matStepLabel>Enjoy</ng-template>
+                <mat-card *ngFor="let data of this.playlist_data" style="display: flex; flex-direction: row; background-color: #0f0b1d;border-radius: 45px; margin-bottom: 1rem;" class="load">
+                    <img [src]="data.album_url" style="width: 5rem; margin-right: 3rem;">
+                    <div class="main-text">
+                        <h1>{{ data.name }}</h1>
+                        <a [href]="data.youtube_url">Open In Youtube</a>
+                        <a [href]="data.download_url.link">
+                            <button mat-icon-button ><mat-icon>cloud_download</mat-icon></button>
+                        </a>
+                    </div>
+                </mat-card>
+        </div>
     </mat-step>
 </mat-stepper>

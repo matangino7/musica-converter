@@ -12,11 +12,11 @@ export class EnterUrlComponent {
     constructor(public matDialog: MatDialog) {}
     url: string = ''
     playlist_data:  {album_url: string, name: string, youtube_url: string, download_url: any}[] = [];
-    submit: boolean = false;
+    paymentSuccessful: boolean = false;
     @ViewChild('stepper') private myStepper!: MatStepper;
 
     submitUrl(url: string) {
-        this.submit = true;
+        this.paymentSuccessful = false;
         fetch('http://127.0.0.1:5000/get-youtube-urls', {
             method: 'POST',
             body: JSON.stringify({
@@ -33,9 +33,12 @@ export class EnterUrlComponent {
                 })
             }
         }).catch(err => {
-            this.submit = false;
             this.playlist_data = [];
             this.myStepper.previous();
         })
+    }
+
+    paymentSuccess(data: any) {
+        this.paymentSuccessful = true;
     }
 }
