@@ -21,12 +21,12 @@
                 </button>
             </div>
         </mat-step>
-        <mat-step>
+        <mat-step [completed]="!!apiPlaylistData">
             <ng-template matStepLabel>Checkout</ng-template>
             <h1 *ngIf="!checkedRadio">No playlist Selected</h1>
-            <app-paypal *ngIf="checkedRadio"></app-paypal>
+            <app-paypal *ngIf="checkedRadio" (onClientAuthorization)="afterPayment($event)"></app-paypal>
             <div>
-                <button mat-icon-button matStepperNext [disabled]="!checkedRadio">
+                <button mat-icon-button matStepperNext [disabled]="!checkedRadio && !!apiPlaylistData">
                     <mat-icon>arrow_right</mat-icon>
                 </button>
                 <div style="width: 1rem;"></div>
@@ -37,6 +37,21 @@
                 <button mat-icon-button style="background-color: white;" (click)="matDialog.closeAll()">
                     <mat-icon>close</mat-icon>
                 </button>
+            </div>
+        </mat-step>
+
+        <mat-step>
+            <div *ngIf="apiPlaylistData != undefined">
+                <ng-template matStepLabel>Enjoy</ng-template>
+                <mat-card *ngFor="let data of this.apiPlaylistData.songs" style="display: flex; flex-direction: row; background-color: #0f0b1d;border-radius: 45px; margin-bottom: 1rem;" class="load">
+                    <img [src]="data.cover" style="width: 5rem; margin-right: 3rem;">
+                    <div class="main-text">
+                        <h1>{{ data.title }}</h1>
+                        <a [href]="data.downloadLink">
+                            <button mat-icon-button ><mat-icon>cloud_download</mat-icon></button>
+                        </a>
+                    </div>
+                </mat-card>
             </div>
         </mat-step>
     </mat-stepper>
