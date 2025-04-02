@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { SpotifyAuthService } from '../spotify-auth.service';
+import { AuthService } from '../firestore.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-spotify-button-top',
@@ -7,9 +9,14 @@ import { SpotifyAuthService } from '../spotify-auth.service';
   styleUrls: ['./spotify-button.component.css']
 })
 export class SpotifyButtonTopComponent {
-  constructor(private spotifyAuth: SpotifyAuthService) {}
+  constructor(private spotifyAuth: SpotifyAuthService, private authService: AuthService, private router: Router) {}
 
   login(): void {
-      window.location.href = this.spotifyAuth.getAuthUrl();
+    if (!this.authService.userSubject.value) {
+        this.router.navigate(['/login']); // Redirect if user is not authenticated
+        return;
+    }
+
+    window.location.href = this.spotifyAuth.getAuthUrl();
   }
 }

@@ -24,6 +24,13 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { PaypalComponent } from './paypal/paypal.component';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { environment } from 'src/enviroments/enviroment';
+import { LoginComponent } from './authentication/login/login.component';
+import { RegisterComponent } from './authentication/register/register.component';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { MainpageComponent } from './mainpage/mainpage.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +42,9 @@ import { PaypalComponent } from './paypal/paypal.component';
     EnterUrlComponent,
     SpotifyPlaylistsComponent,
     PaypalComponent,
+    LoginComponent,
+    RegisterComponent,
+    MainpageComponent,
 ],
 imports: [
     BrowserModule,
@@ -52,7 +62,10 @@ imports: [
     MatStepperModule,
     MatCheckboxModule,
     MatRadioModule,
-    NgxPayPalModule
+    NgxPayPalModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth())
   ],
   providers: [],
   bootstrap: [AppComponent]
