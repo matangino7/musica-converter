@@ -1,7 +1,66 @@
-<form (ngSubmit)="login()">
-    <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required />
-    <input type="password" [(ngModel)]="password" name="password" placeholder="Password" required />
-    <button type="submit">Login</button>
-  </form>
-  <button (click)="googleLogin()">Login with Google</button>
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Welcome Back</h2>
+    <p class="subtitle">Sign in to continue to Musica Converter</p>
+    
+    <form (ngSubmit)="login()" #loginForm="ngForm" class="auth-form">
+      <div class="form-group">
+        <label for="email" class="form-label">Email</label>
+        <div class="input-with-icon">
+          <i class="fas fa-envelope"></i>
+          <input 
+            type="email" 
+            id="email"
+            [(ngModel)]="email" 
+            name="email" 
+            placeholder="Enter your email"
+            required 
+            #emailInput="ngModel"
+            [class.invalid]="emailInput.invalid && emailInput.touched"
+            class="form-control"
+          />
+        </div>
+        <div class="error-message" *ngIf="emailInput.invalid && emailInput.touched">
+          Please enter a valid email address
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-with-icon">
+          <i class="fas fa-lock"></i>
+          <input 
+            type="password" 
+            id="password"
+            [(ngModel)]="password" 
+            name="password" 
+            placeholder="Enter your password"
+            required 
+            #passwordInput="ngModel"
+            [class.invalid]="passwordInput.invalid && passwordInput.touched"
+            class="form-control"
+          />
+        </div>
+        <div class="error-message" *ngIf="passwordInput.invalid && passwordInput.touched">
+          Password is required
+        </div>
+      </div>
+
+      <div class="error-message mb-3" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid || isLoading">
+        <span *ngIf="!isLoading">Sign In</span>
+        <span *ngIf="isLoading">
+          <i class="fas fa-spinner fa-spin"></i> Signing in...
+        </span>
+      </button>
+    </form>
+
+    <p class="auth-footer">
+      Don't have an account? <a routerLink="/register">Sign up</a>
+    </p>
+  </div>
+</div>
   

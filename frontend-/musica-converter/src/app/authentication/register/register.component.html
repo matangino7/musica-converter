@@ -1,6 +1,67 @@
-<form (ngSubmit)="register()">
-    <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required />
-    <input type="password" [(ngModel)]="password" name="password" placeholder="Password" required />
-    <button type="submit">Register</button>
-  </form>
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Create Account</h2>
+    <p class="subtitle">Join Musica Converter today</p>
+    
+    <form (ngSubmit)="register()" #registerForm="ngForm" class="auth-form">
+      <div class="form-group">
+        <label for="email" class="form-label">Email</label>
+        <div class="input-with-icon">
+          <i class="fas fa-envelope"></i>
+          <input 
+            type="email" 
+            id="email"
+            [(ngModel)]="email" 
+            name="email" 
+            placeholder="Enter your email"
+            required 
+            #emailInput="ngModel"
+            [class.invalid]="emailInput.invalid && emailInput.touched"
+            class="form-control"
+          />
+        </div>
+        <div class="error-message" *ngIf="emailInput.invalid && emailInput.touched">
+          Please enter a valid email address
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-with-icon">
+          <i class="fas fa-lock"></i>
+          <input 
+            type="password" 
+            id="password"
+            [(ngModel)]="password" 
+            name="password" 
+            placeholder="Create a password"
+            required 
+            minlength="6"
+            #passwordInput="ngModel"
+            [class.invalid]="passwordInput.invalid && passwordInput.touched"
+            class="form-control"
+          />
+        </div>
+        <div class="error-message" *ngIf="passwordInput.invalid && passwordInput.touched">
+          Password must be at least 6 characters long
+        </div>
+      </div>
+
+      <div class="error-message mb-3" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid || isLoading">
+        <span *ngIf="!isLoading">Create Account</span>
+        <span *ngIf="isLoading">
+          <i class="fas fa-spinner fa-spin"></i> Creating account...
+        </span>
+      </button>
+    </form>
+
+    <p class="auth-footer">
+      Already have an account? <a routerLink="/login">Sign in</a>
+    </p>
+  </div>
+</div>
   

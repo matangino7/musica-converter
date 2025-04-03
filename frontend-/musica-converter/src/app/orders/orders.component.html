@@ -1,0 +1,69 @@
+<div class="orders-container">
+  <div class="orders-header">
+    <h1>My Orders</h1>
+    <p>View your playlist conversion history</p>
+  </div>
+
+  <div class="orders-content">
+    <div *ngIf="loading" class="loading-container">
+      <div class="spinner"></div>
+      <p>Loading your orders...</p>
+    </div>
+
+    <div *ngIf="error" class="error-container">
+      <i class="fas fa-exclamation-circle"></i>
+      <p>{{ error }}</p>
+      <button class="btn btn-primary" (click)="fetchOrders()">Try Again</button>
+    </div>
+
+    <div *ngIf="!loading && !error && orders.length === 0" class="empty-container">
+      <i class="fas fa-music"></i>
+      <h2>No Orders Yet</h2>
+      <p>You haven't converted any playlists yet.</p>
+      <button class="btn btn-primary" routerLink="/homepage">Convert a Playlist</button>
+    </div>
+
+    <div *ngIf="!loading && !error && orders.length > 0" class="orders-table-container">
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Playlist</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Songs</th>
+            <th>Plan</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders">
+            <td>{{ formatDate(order.date) }}</td>
+            <td class="playlist-name">{{ order.playlistName }}</td>
+            <td>
+              <span [class]="'platform-icon platform-' + order.sourcePlatform.toLowerCase()">
+                <i [class]="'fab fa-' + order.sourcePlatform.toLowerCase()"></i>
+              </span>
+              {{ order.sourcePlatform }}
+            </td>
+            <td>
+              <span [class]="'platform-icon platform-' + order.targetPlatform.toLowerCase()">
+                <i [class]="'fab fa-' + order.targetPlatform.toLowerCase()"></i>
+              </span>
+              {{ order.targetPlatform }}
+            </td>
+            <td>{{ order.songCount }}</td>
+            <td>{{ order.plan }}</td>
+            <td>${{ order.amount.toFixed(2) }}</td>
+            <td>
+              <span [class]="'status-badge ' + getStatusClass(order.status)">
+                {{ order.status }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

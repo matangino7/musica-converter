@@ -1,517 +1,145 @@
-/* Global styles for the responsive background */
-.navbar {
-    background-color: #0f0b1d !important;
+/* Mainpage Component Styles */
+.mainpage {
+  min-height: 100vh;
+  background: var(--background-color);
+  color: var(--text-color);
 }
 
-
-
-/* Extra Small Devices (Phones, less than 576px) */
-@media (max-width: 575.98px) {
-    .main {
-        background-color: #1C1436;
-        height: fit-content;
-        width: 100%;
-        overflow-x: hidden;
-    }
-    
-    .header {
-        color: #FDFDFF;
-        text-align: center;
-        font-family: Montserrat;
-        font-size: 56px;
-        font-weight: 700;
-        line-height: 150%; /* 84px */
-        width: 833px;
-        height: 153px;
-        flex-shrink: 0;
-        display: contents;
-        font-size: -webkit-xxx-large;
-    }
-    
-    .about {
-        color: #FDFDFF;
-        font-family: Montserrat;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-    }
-    
-    .center-head {
-        color: #FFF;
-        text-align: center;
-        font-family: Montserrat;
-        font-size: 48px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-    }
-    
-    .top-image {
-        width: 10rem;
-        margin-left: 2rem;
-    }
-    
-    .col-head {
-        height: 90vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .mid-img {
-        width: 75vw;
-    }
-    
-    .flex-content {
-        display: flex;
-        justify-content: center;
-    }
-    
-    .flex-end {
-        display: flex;
-        justify-content: center;
-    }
-    
-    .bottom-img {
-        width: 60vw
-    }
-    
-    .height-60 {
-        height: 60vh;
-    }
-    
-    .how-it-works {
-        height: 40vh;
-        display: flex;
-        align-content: center;
-    }
-
-    .flex-spotify {
-        display: flex;
-        justify-content: center;
-    }
-
-    .button-row-phone {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .apple-button-phone {
-        margin-bottom: 1rem;
-    }
-
-    .phone-hidden {
-        display: none;
-    }
+/* Hero Section */
+.hero {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
 }
 
-/* Small Devices (Tablets, 576px and up) */
-@media (min-width: 576px) and (max-width: 767.98px) {
-    .main {
-        background-color: #1C1436;
-        height: 301vh;
-        width: 100%;
-        overflow-x: hidden;
-    }
-    
-    .header {
-        color: #FDFDFF;
-        text-align: center;
-        font-family: Montserrat;
-        font-size: 56px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 150%; /* 84px */
-        width: 833px;
-        height: 153px;
-        flex-shrink: 0;
-    }
-    
-    .about {
-        color: #FDFDFF;
-        font-family: Montserrat;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-    }
-    
-    .center-head {
-        color: #FFF;
-        text-align: center;
-        font-family: Montserrat;
-        font-size: 48px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-    }
-    
-    .top-image {
-        width: 10rem;
-        margin-left: 2rem;
-    }
-    
-    .col-head {
-        height: 90vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .mid-img {
-        width: 75vw;
-    }
-    
-    .flex-content {
-        display: flex;
-        justify-content: center;
-    }
-    
-    .flex-end {
-        display: flex;
-        justify-content: flex-end;
-    }
-    
-    .bottom-img {
-        width: 60vw
-    }
-    
-    .height-60 {
-        height: 60vh;
-    }
-    
-    .how-it-works {
-        height: 40vh;
-        display: flex;
-        align-content: center;
-    }
+.hero-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-/* Medium Devices (Desktops, 768px and up) */
-@media (min-width: 768px) and (max-width: 991.98px) {
-    .main {
-        background-color: #1C1436;
-        height: 301vh;
-        width: 100%;
-        overflow-x: hidden;
-    }
-    
-    .header {
-        color: #FDFDFF;
-        text-align: center;
-        font-family: Montserrat;
-        font-size: 56px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 150%; /* 84px */
-        width: 833px;
-        height: 153px;
-        flex-shrink: 0;
-    }
-    
-    .about {
-        color: #FDFDFF;
-        font-family: Montserrat;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-    }
-    
-    .center-head {
-        color: #FFF;
-        text-align: center;
-        font-family: Montserrat;
-        font-size: 48px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-    }
-    
-    .top-image {
-        width: 10rem;
-        margin-left: 2rem;
-    }
-    
-    .col-head {
-        height: 90vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .mid-img {
-        width: 75vw;
-    }
-    
-    .flex-content {
-        display: flex;
-        justify-content: center;
-    }
-    
-    .flex-end {
-        display: flex;
-        justify-content: flex-end;
-    }
-    
-    .bottom-img {
-        width: 60vw
-    }
-    
-    .height-60 {
-        height: 60vh;
-    }
-    
-    .how-it-works {
-        height: 40vh;
-        display: flex;
-        align-content: center;
-    }
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
 }
 
-/* Large Devices (Desktops, 992px and up) */
-@media (min-width: 992px) and (max-width: 1199.98px) {
-    .main {
-        background-color: #1C1436;
-        height: 301vh;
-        width: 100%;
-        overflow-x: hidden;
-    }
-    
-    .header {
-        color: #FDFDFF;
-        text-align: center;
-        font-family: Montserrat;
-        font-size: 56px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 150%; /* 84px */
-        width: 833px;
-        height: 153px;
-        flex-shrink: 0;
-    }
-    
-    .about {
-        color: #FDFDFF;
-        font-family: Montserrat;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-    }
-    
-    .center-head {
-        color: #FFF;
-        text-align: center;
-        font-family: Montserrat;
-        font-size: 48px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-    }
-    
-    .top-image {
-        width: 10rem;
-        margin-left: 2rem;
-    }
-    
-    .col-head {
-        height: 90vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .mid-img {
-        width: 75vw;
-    }
-    
-    .flex-content {
-        display: flex;
-        justify-content: center;
-    }
-    
-    .flex-end {
-        display: flex;
-        justify-content: flex-end;
-    }
-    
-    .bottom-img {
-        width: 60vw
-    }
-    
-    .height-60 {
-        height: 60vh;
-    }
-    
-    .how-it-works {
-        height: 40vh;
-        display: flex;
-        align-content: center;
-    }
+.hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
 }
 
-/* Extra Large Devices (1200px and up) */
-@media (min-width: 1200px) and (max-width: 1399.98px) {
-    .main {
-        background-color: #1C1436;
-        height: 301vh;
-        width: 100%;
-        overflow-x: hidden;
-    }
-    
-    .header {
-        color: #FDFDFF;
-        text-align: center;
-        font-family: Montserrat;
-        font-size: 56px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 150%; /* 84px */
-        width: 833px;
-        height: 153px;
-        flex-shrink: 0;
-    }
-    
-    .about {
-        color: #FDFDFF;
-        font-family: Montserrat;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-    }
-    
-    .center-head {
-        color: #FFF;
-        text-align: center;
-        font-family: Montserrat;
-        font-size: 48px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-    }
-    
-    .top-image {
-        width: 10rem;
-        margin-left: 2rem;
-    }
-    
-    .col-head {
-        height: 90vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .mid-img {
-        width: 75vw;
-    }
-    
-    .flex-content {
-        display: flex;
-        justify-content: center;
-    }
-    
-    .flex-end {
-        display: flex;
-        justify-content: flex-end;
-    }
-    
-    .bottom-img {
-        width: 60vw
-    }
-    
-    .height-60 {
-        height: 60vh;
-    }
-    
-    .how-it-works {
-        height: 40vh;
-        display: flex;
-        align-content: center;
-    }
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
 }
 
-/* Ultra Large Devices (1400px and up) */
-@media (min-width: 1400px) {
-    .main {
-        background-color: #1C1436;
-        height: 301vh;
-        width: 100%;
-        overflow-x: hidden;
-    }
-    
-    .header {
-        color: #FDFDFF;
-        text-align: center;
-        font-family: Montserrat;
-        font-size: 56px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 150%; /* 84px */
-        width: 833px;
-        height: 153px;
-        flex-shrink: 0;
-    }
-    
-    .about {
-        color: #FDFDFF;
-        font-family: Montserrat;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-    }
-    
-    .center-head {
-        color: #FFF;
-        text-align: center;
-        font-family: Montserrat;
-        font-size: 48px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-    }
-    
-    .top-image {
-        width: 10rem;
-        margin-left: 2rem;
-    }
-    
-    .col-head {
-        height: 90vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .mid-img {
-        width: 75vw;
-    }
-    
-    .flex-content {
-        display: flex;
-        justify-content: center;
-    }
-    
-    .flex-end {
-        display: flex;
-        justify-content: flex-end;
-    }
-    
-    .bottom-img {
-        width: 60vw
-    }
-    
-    .height-60 {
-        height: 60vh;
-    }
-    
-    .how-it-works {
-        height: 40vh;
-        display: flex;
-        align-content: center;
-    }
+/* Features Section */
+.features {
+  padding: 6rem 0;
+  background: var(--background-color);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--text-color);
+}
+
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: var(--card-background);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.feature-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.feature-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* CTA Section */
+.cta {
+  padding: 6rem 0;
+  background: var(--secondary-color);
+  color: white;
+}
+
+.cta-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.cta-description {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .cta-title {
+    font-size: 2rem;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+  }
 }
