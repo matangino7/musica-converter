@@ -1,52 +1,108 @@
 <mat-stepper #stepper [linear]="true">
     <mat-step>
-        <ng-template matStepLabel>Enter Playlist Url To Convert</ng-template>
-        <mat-card-content>
-            <form class="example-form">
-                <mat-form-field class="example-full-width" style="width: 30vw;">
-                  <mat-label>Enter Playlist Url</mat-label>
-                  <input [(ngModel)]="this.url" [ngModelOptions]="{standalone: true}" matInput placeholder="https://music.apple.com/...">
-                </mat-form-field>
-            </form>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-icon-button matStepperNext style="background-color: white;" (click)="submitUrl(this.url)">
-                <mat-icon>arrow_right_alt</mat-icon>
-            </button>
-            <div style="width: 1rem;"></div>
-            <button mat-icon-button style="background-color: white;" (click)="matDialog.closeAll()">
-                <mat-icon>close</mat-icon>
-            </button>
-        </mat-card-actions>
+        <ng-template matStepLabel>Enter Playlist URL</ng-template>
+        <div class="step-container">
+            <h2>Convert Your Playlist</h2>
+            <p>Enter the URL of the playlist you want to convert</p>
+            
+            <mat-card class="url-input-card">
+                <mat-card-content>
+                    <form class="example-form">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Playlist URL</mat-label>
+                            <input [(ngModel)]="this.url" [ngModelOptions]="{standalone: true}" matInput placeholder="https://music.apple.com/...">
+                            <mat-icon matSuffix>link</mat-icon>
+                        </mat-form-field>
+                    </form>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary" matStepperNext (click)="submitUrl(this.url)">
+                        <mat-icon>arrow_forward</mat-icon>
+                        Convert
+                    </button>
+                    <button mat-button (click)="matDialog.closeAll()">
+                        <mat-icon>close</mat-icon>
+                        Cancel
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
     </mat-step>
 
     <mat-step [completed]="this.playlist_data.length > 0">
-        <ng-template matStepLabel>Waiting For Server To Process</ng-template>
-        <div *ngIf="this.playlist_data.length <= 0">
-            <mat-spinner style="justify-self: center;"></mat-spinner>
-        </div>
-        <div *ngIf="this.playlist_data.length > 0">
-            <h3 style="justify-self: center;">Finished Process, Moving To Next Page...</h3>
+        <ng-template matStepLabel>Processing Playlist</ng-template>
+        <div class="step-container">
+            <div *ngIf="this.playlist_data.length <= 0" class="processing-container">
+                <mat-spinner diameter="50"></mat-spinner>
+                <h3>Processing your playlist...</h3>
+                <p>We're analyzing your playlist and preparing it for conversion</p>
+            </div>
+            <div *ngIf="this.playlist_data.length > 0" class="success-container">
+                <mat-icon class="success-icon">check_circle</mat-icon>
+                <h3>Playlist Processed Successfully!</h3>
+                <p>We found {{ playlist_data.length }} songs in your playlist</p>
+                <button mat-raised-button color="primary" (click)="stepper.next()">
+                    Continue to Payment
+                </button>
+            </div>
         </div>
     </mat-step>
     
     <mat-step>
-        <div>
-            <ng-template matStepLabel>Checkout</ng-template>
-            <app-paypal (onClientAuthorization)="paymentSuccess($event)"></app-paypal>
-        </div>
-        <div *ngIf="paymentSuccessful">
-            <ng-template matStepLabel>Enjoy</ng-template>
-                <mat-card *ngFor="let data of this.playlist_data" style="display: flex; flex-direction: row; background-color: #0f0b1d;border-radius: 45px; margin-bottom: 1rem;" class="load">
-                    <img [src]="data.album_url" style="width: 5rem; margin-right: 3rem;">
-                    <div class="main-text">
-                        <h1>{{ data.name }}</h1>
-                        <a [href]="data.youtube_url">Open In Youtube</a>
-                        <a [href]="data.download_url.link">
-                            <button mat-icon-button ><mat-icon>cloud_download</mat-icon></button>
-                        </a>
-                    </div>
+        <ng-template matStepLabel>Payment</ng-template>
+        <div class="step-container">
+            <div *ngIf="!paymentSuccessful">
+                <h2>Complete Your Purchase</h2>
+                <p>Choose your payment method to convert your playlist</p>
+                
+                <mat-card class="payment-card">
+                    <mat-card-header>
+                        <mat-card-title>Premium Conversion</mat-card-title>
+                        <mat-card-subtitle>One-time payment</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="price-container">
+                            <span class="price">$2.00</span>
+                            <span class="price-details">USD</span>
+                        </div>
+                        <ul class="features-list">
+                            <li><mat-icon>check</mat-icon> Convert {{ playlist_data.length }} songs</li>
+                            <li><mat-icon>check</mat-icon> High-quality audio</li>
+                            <li><mat-icon>check</mat-icon> Instant download</li>
+                        </ul>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <app-paypal (onClientAuthorization)="paymentSuccess($event)"></app-paypal>
+                    </mat-card-actions>
                 </mat-card>
+            </div>
+            
+            <div *ngIf="paymentSuccessful" class="payment-success-container">
+                <mat-icon class="success-icon">payment</mat-icon>
+                <h2>Payment Successful!</h2>
+                <p>Your playlist conversion is being processed</p>
+                <p class="redirect-message">Redirecting you to your orders page...</p>
+                
+                <div class="playlist-preview">
+                    <h3>Your Playlist</h3>
+                    <mat-card *ngFor="let data of this.playlist_data" class="song-card">
+                        <img [src]="data.album_url" class="album-cover">
+                        <div class="song-details">
+                            <h4>{{ data.name }}</h4>
+                            <div class="song-actions">
+                                <a [href]="data.youtube_url" target="_blank" mat-button>
+                                    <mat-icon>play_circle</mat-icon>
+                                    YouTube
+                                </a>
+                                <a [href]="data.download_url.link" mat-button color="primary">
+                                    <mat-icon>cloud_download</mat-icon>
+                                    Download
+                                </a>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
         </div>
     </mat-step>
 </mat-stepper>

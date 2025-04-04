@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class SpotifyAuthService {
   private clientId = 'adad56b52b644c26b8822210ee2011ff';//TODO: move to env
-  private redirectUri = 'http://localhost:4200/'; // Make sure this matches the URI registered in Spotify
-  private scopes = 'user-read-private user-read-email'; // Adjust the scopes as needed
+  private redirectUri = window.location.origin + '/'; // Use the current origin
+  private scopes = 'user-read-private user-read-email playlist-read-private playlist-read-collaborative'; // Added playlist scopes
 
   constructor(private http: HttpClient) {}
 

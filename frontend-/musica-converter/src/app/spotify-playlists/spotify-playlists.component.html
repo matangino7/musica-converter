@@ -1,57 +1,138 @@
 <mat-dialog-content>
     <mat-stepper [linear]="true">
         <mat-step>
-            <ng-template matStepLabel>Select One Playlist To Convert</ng-template>
-            <mat-radio-group [(ngModel)]="checkedRadio">
-            <mat-card *ngFor="let data of this.playlistData" style="display: flex; flex-direction: row;border-radius: 45px; margin-bottom: 1rem;background-color: #673ab7; justify-content: flex-start;" class="load">
-                <img [src]="data.playlistImg" style="width: 5rem; margin-right: 3rem;">
-                <div class="main-text">
-                    <h1>{{ data.playlistName }}</h1>
-                    <mat-radio-button [value]="data"></mat-radio-button>
+            <ng-template matStepLabel>Select Playlist</ng-template>
+            <div class="step-container">
+                <div class="header-container">
+                    <img src="assets/spotify.svg" alt="Spotify Logo" class="platform-logo">
+                    <h2>Choose a Playlist to Convert</h2>
                 </div>
-            </mat-card>
-            </mat-radio-group>
-            <div>
-                <button mat-icon-button matStepperNext [disabled]="!checkedRadio">
-                    <mat-icon>arrow_right</mat-icon>
-                </button>
-                <div style="width: 1rem;"></div>
-                <button mat-icon-button style="background-color: white;" (click)="matDialog.closeAll()">
-                    <mat-icon>close</mat-icon>
-                </button>
+                <p>Select one of your Spotify playlists to convert to Apple Music</p>
+                
+                <div class="playlists-container">
+                    <mat-radio-group [(ngModel)]="checkedRadio" class="playlist-radio-group">
+                        <mat-card *ngFor="let data of this.playlistData" class="playlist-card" (click)="onPlaylistSelected(data)">
+                            <img [src]="data.playlistImg" class="playlist-cover" onerror="this.src='assets/spotify.svg'">
+                            <div class="playlist-details">
+                                <h3>{{ data.playlistName }}</h3>
+                                <p>{{ data.data.length }} songs</p>
+                                <mat-radio-button [value]="data" class="playlist-radio"></mat-radio-button>
+                            </div>
+                        </mat-card>
+                    </mat-radio-group>
+                </div>
+                
+                <div class="stepper-actions">
+                    <button mat-raised-button color="primary" matStepperNext [disabled]="!checkedRadio">
+                        <mat-icon>arrow_forward</mat-icon>
+                        Continue
+                    </button>
+                    <button mat-button (click)="matDialog.closeAll()">
+                        <mat-icon>close</mat-icon>
+                        Cancel
+                    </button>
+                </div>
             </div>
         </mat-step>
+        
         <mat-step [completed]="!!apiPlaylistData">
-            <ng-template matStepLabel>Checkout</ng-template>
-            <h1 *ngIf="!checkedRadio">No playlist Selected</h1>
-            <app-paypal *ngIf="checkedRadio" (onClientAuthorization)="afterPayment($event)"></app-paypal>
-            <div>
-                <button mat-icon-button matStepperNext [disabled]="!checkedRadio && !!apiPlaylistData">
-                    <mat-icon>arrow_right</mat-icon>
-                </button>
-                <div style="width: 1rem;"></div>
-                <button mat-icon-button matStepperPrevious [disabled]="!checkedRadio">
-                    <mat-icon>arrow_left</mat-icon>
-                </button>
-                <div style="width: 1rem;"></div>
-                <button mat-icon-button style="background-color: white;" (click)="matDialog.closeAll()">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </div>
-        </mat-step>
-
-        <mat-step>
-            <div *ngIf="apiPlaylistData != undefined">
-                <ng-template matStepLabel>Enjoy</ng-template>
-                <mat-card *ngFor="let data of this.apiPlaylistData.songs" style="display: flex; flex-direction: row; background-color: #0f0b1d;border-radius: 45px; margin-bottom: 1rem;" class="load">
-                    <img [src]="data.cover" style="width: 5rem; margin-right: 3rem;">
-                    <div class="main-text">
-                        <h1>{{ data.title }}</h1>
-                        <a [href]="data.downloadLink">
-                            <button mat-icon-button ><mat-icon>cloud_download</mat-icon></button>
-                        </a>
+            <ng-template matStepLabel>Payment</ng-template>
+            <div class="step-container">
+                <div *ngIf="!checkedRadio" class="error-container">
+                    <mat-icon class="error-icon">error</mat-icon>
+                    <h3>No Playlist Selected</h3>
+                    <p>Please go back and select a playlist to convert</p>
+                    <button mat-raised-button color="primary" matStepperPrevious>
+                        <mat-icon>arrow_back</mat-icon>
+                        Go Back
+                    </button>
+                </div>
+                
+                <div *ngIf="checkedRadio && !apiPlaylistData" class="payment-section">
+                    <div class="header-container">
+                        <img src="assets/spotify.svg" alt="Spotify Logo" class="platform-logo">
+                        <h2>Complete Your Purchase</h2>
                     </div>
-                </mat-card>
+                    <p>Choose your payment method to convert your playlist</p>
+                    
+                    <mat-card class="payment-card">
+                        <mat-card-header>
+                            <mat-card-title>Premium Conversion</mat-card-title>
+                            <mat-card-subtitle>One-time payment</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="price-container">
+                                <span class="price">$2.00</span>
+                                <span class="price-details">USD</span>
+                            </div>
+                            <ul class="features-list">
+                                <li><mat-icon>check</mat-icon> Convert {{ checkedRadio.data.length }} songs</li>
+                                <li><mat-icon>check</mat-icon> High-quality audio</li>
+                                <li><mat-icon>check</mat-icon> Instant download</li>
+                            </ul>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <app-paypal (onApprove)="afterPayment($event)"></app-paypal>
+                            
+                            <!-- Test button for debugging -->
+                            <button mat-raised-button color="accent" (click)="afterPayment({orderID: 'test-order', details: {status: 'COMPLETED'}})" style="margin-top: 10px;">
+                                <mat-icon>bug_report</mat-icon>
+                                Test Payment Flow
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+                
+                <div *ngIf="errorMessage" class="error-message">
+                    <mat-icon class="error-icon">error</mat-icon>
+                    <h3>Error</h3>
+                    <p>{{ errorMessage }}</p>
+                    <button mat-raised-button color="primary" (click)="errorMessage = ''">
+                        <mat-icon>refresh</mat-icon>
+                        Try Again
+                    </button>
+                </div>
+                
+                <div *ngIf="apiPlaylistData" class="payment-success-container">
+                    <div class="header-container">
+                        <img src="assets/apple_music.svg" alt="Apple Music Logo" class="platform-logo">
+                        <h2>Payment Successful!</h2>
+                    </div>
+                    <p>Your playlist conversion is being processed</p>
+                    <p class="redirect-message">Your converted songs are ready!</p>
+                    
+                    <div class="playlist-preview">
+                        <h3>Your Converted Playlist</h3>
+                        <mat-card *ngFor="let data of this.apiPlaylistData?.data?.songs" class="song-card">
+                            <img [src]="data.cover" class="album-cover" onerror="this.src='assets/apple_music.svg'">
+                            <div class="song-details">
+                                <h4>{{ data.title }}</h4>
+                                <p class="artist">{{ data.artist }}</p>
+                                <div class="song-actions">
+                                    <a [href]="data.downloadLink" mat-button color="primary">
+                                        <mat-icon>cloud_download</mat-icon>
+                                        Download
+                                    </a>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                </div>
+                
+                <div class="stepper-actions">
+                    <button mat-raised-button color="primary" matStepperNext [disabled]="!apiPlaylistData">
+                        <mat-icon>arrow_forward</mat-icon>
+                        Continue
+                    </button>
+                    <button mat-button matStepperPrevious [disabled]="!checkedRadio">
+                        <mat-icon>arrow_back</mat-icon>
+                        Back
+                    </button>
+                    <button mat-button (click)="matDialog.closeAll()">
+                        <mat-icon>close</mat-icon>
+                        Close
+                    </button>
+                </div>
             </div>
         </mat-step>
     </mat-stepper>

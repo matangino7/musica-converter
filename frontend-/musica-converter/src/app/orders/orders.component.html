@@ -35,10 +35,11 @@
             <th>Plan</th>
             <th>Amount</th>
             <th>Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let order of orders">
+          <tr *ngFor="let order of orders" [class.clickable]="order.status === 'completed' && order.urls">
             <td>{{ formatDate(order.date) }}</td>
             <td class="playlist-name">{{ order.playlistName }}</td>
             <td>
@@ -61,9 +62,94 @@
                 {{ order.status }}
               </span>
             </td>
+            <td>
+              <button *ngIf="order.status === 'completed' && order.urls" 
+                      class="btn btn-link" 
+                      (click)="showOrderDetails(order)">
+                <i class="fas fa-download"></i> View Links
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<!-- Order Details Modal -->
+<div class="modal-overlay" *ngIf="selectedOrder" (click)="closeOrderDetails()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Download Links</h2>
+      <button class="close-button" (click)="closeOrderDetails()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="order-info">
+        <div class="order-info-header">
+          <h3>{{ selectedOrder.playlistName }}</h3>
+          <span [class]="'status-badge ' + getStatusClass(selectedOrder.status)">{{ selectedOrder.status }}</span>
+        </div>
+        <div class="order-info-details">
+          <p><strong>Date:</strong> {{ formatDate(selectedOrder.date) }}</p>
+          <p><strong>From:</strong> {{ selectedOrder.sourcePlatform }}</p>
+          <p><strong>To:</strong> YouTube MP3</p>
+          <p><strong>Songs:</strong> {{ selectedOrder.songCount }}</p>
+        </div>
+      </div>
+      
+      <div class="download-links" *ngIf="selectedOrder.urls && selectedOrder.urls.downloadLinks && selectedOrder.urls.downloadLinks.length > 0">
+        <div class="section-header">
+          <h3>Download Links</h3>
+          <p>Click on a link to download the song</p>
+        </div>
+        <div class="links-container">
+          <div *ngFor="let song of selectedOrder.urls!.downloadLinks; let i = index" class="link-item">
+            <div class="link-content">
+              <div class="song-thumbnail" [style.background-image]="song.thumbnail ? 'url(' + song.thumbnail + ')' : 'none'">
+                <div class="thumbnail-overlay">
+                  <i class="fas fa-music"></i>
+                </div>
+              </div>
+              <div class="link-details">
+                <div class="link-title">{{ song.title || 'Song ' + (i + 1) }}</div>
+                <div class="link-artist" *ngIf="song.artist">{{ song.artist }}</div>
+                <a [href]="song.url" target="_blank" class="download-link" (click)="openUrl(song.url)">
+                  <i class="fas fa-download"></i>
+                  Download MP3
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="preview-links" *ngIf="selectedOrder.urls && selectedOrder.urls.previewLinks && selectedOrder.urls.previewLinks.length > 0">
+        <div class="section-header">
+          <h3>Preview Links</h3>
+          <p>Click on a link to preview the song on YouTube</p>
+        </div>
+        <div class="links-container">
+          <div *ngFor="let song of selectedOrder.urls!.previewLinks; let i = index" class="link-item">
+            <div class="link-content">
+              <div class="song-thumbnail" [style.background-image]="song.thumbnail ? 'url(' + song.thumbnail + ')' : 'none'">
+                <div class="thumbnail-overlay">
+                  <i class="fas fa-play"></i>
+                </div>
+              </div>
+              <div class="link-details">
+                <div class="link-title">{{ song.title || 'Song ' + (i + 1) }}</div>
+                <div class="link-artist" *ngIf="song.artist">{{ song.artist }}</div>
+                <a [href]="song.url" target="_blank" class="preview-link" (click)="openUrl(song.url)">
+                  <i class="fab fa-youtube"></i>
+                  Watch on YouTube
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

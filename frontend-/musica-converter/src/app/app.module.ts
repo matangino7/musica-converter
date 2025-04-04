@@ -27,6 +27,9 @@ import { PricingComponent } from './pricing/pricing.component';
 import { AboutComponent } from './about/about.component';
 import { OrdersComponent } from './orders/orders.component';
 
+// Services
+import { OrderService } from './services/order.service';
+
 // Shared Module
 import { SharedModule } from './shared/shared.module';
 
@@ -60,7 +63,7 @@ import { SharedModule } from './shared/shared.module';
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth())
   ],
-  providers: [],
+  providers: [OrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

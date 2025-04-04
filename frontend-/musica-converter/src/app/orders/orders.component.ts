@@ -1,21 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Firestore, collection, query, where, getDocs, orderBy } from '@angular/fire/firestore';
-import { AuthService } from 'src/app/firestore.service';
+import { AuthService } from '../firestore.service';
+import { OrderService, Order, OrderUrls } from '../services/order.service';
 import { Subscription } from 'rxjs';
-
-interface Order {
-  id: string;
-  userId: string;
-  date: Date;
-  status: string;
-  plan: string;
-  amount: number;
-  playlistName: string;
-  sourcePlatform: string;
-  targetPlatform: string;
-  songCount: number;
-}
+import { MatDialog } from '@angular/material/dialog';
+import { ApiCallsService } from '../api-calls.service';
 
 @Component({
   selector: 'app-orders',
@@ -24,21 +13,22 @@ interface Order {
 })
 export class OrdersComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
-  loading = true;
-  error = '';
+  loading = false;
+  error: string | null = null;
+  selectedOrder: Order | null = null;
   private userSubscription: Subscription | null = null;
-  userId: string | null = null;
 
   constructor(
-    private firestore: Firestore,
+    private orderService: OrderService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
+    private apiCallsService: ApiCallsService
   ) {}
 
   ngOnInit(): void {
     this.userSubscription = this.authService.user$.subscribe(user => {
       if (user) {
-        this.userId = user.uid;
         this.fetchOrders();
       } else {
         this.router.navigate(['/login']);
@@ -53,41 +43,67 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   async fetchOrders(): Promise<void> {
-    if (!this.userId) return;
-    
     this.loading = true;
     this.error = '';
     
     try {
-      const ordersRef = collection(this.firestore, 'orders');
-      const q = query(
-        ordersRef,
-        where('userId', '==', this.userId),
-        orderBy('date', 'desc')
+      this.orders = await this.orderService.getUserOrders();
+      
+      // Check for stuck orders (processing for more than 5 minutes)
+      const now = new Date();
+      const stuckOrders = this.orders.filter(order => {
+        if (order.status !== 'processing') return false;
+        
+        const orderDate = new Date(order.date);
+        const diffMinutes = (now.getTime() - orderDate.getTime()) / (1000 * 60);
+        return diffMinutes > 5;
+      });
+      
+      // Fix stuck orders
+      for (const order of stuckOrders) {
+        if (order.id) {
+          console.log(`Fixing stuck order: ${order.id}`);
+          await this.orderService.updateOrderStatus(order.id, 'failed');
+        }
+      }
+      
+      // Check for completed orders without URLs
+      const completedOrdersWithoutUrls = this.orders.filter(order => 
+        order.status === 'completed' && (!order.urls || !order.urls.downloadLinks || order.urls.downloadLinks.length === 0)
       );
       
-      const querySnapshot = await getDocs(q);
+      if (completedOrdersWithoutUrls.length > 0) {
+        console.log(`Found ${completedOrdersWithoutUrls.length} completed orders without URLs`);
+        // We'll fix these in a separate function to avoid blocking the UI
+        this.fixCompletedOrdersWithoutUrls(completedOrdersWithoutUrls);
+      }
       
-      this.orders = querySnapshot.docs.map(doc => {
-        const data = doc.data();
-        return {
-          id: doc.id,
-          userId: data['userId'],
-          date: data['date'].toDate(),
-          status: data['status'],
-          plan: data['plan'],
-          amount: data['amount'],
-          playlistName: data['playlistName'],
-          sourcePlatform: data['sourcePlatform'],
-          targetPlatform: data['targetPlatform'],
-          songCount: data['songCount']
-        };
-      });
+      // Refresh orders after fixing
+      if (stuckOrders.length > 0) {
+        this.orders = await this.orderService.getUserOrders();
+      }
     } catch (err) {
       console.error('Error fetching orders:', err);
       this.error = 'Failed to load your orders. Please try again later.';
     } finally {
       this.loading = false;
+    }
+  }
+  
+  async fixCompletedOrdersWithoutUrls(orders: Order[]): Promise<void> {
+    for (const order of orders) {
+      if (!order.id) continue;
+      
+      try {
+        console.log(`Attempting to fix order ${order.id} without URLs`);
+        
+        // For now, we'll just mark these as failed since we don't have the original playlist data
+        // In a real implementation, you might want to store the playlist ID with the order
+        await this.orderService.updateOrderStatus(order.id, 'failed');
+        console.log(`Marked order ${order.id} as failed`);
+      } catch (error) {
+        console.error(`Error fixing order ${order.id}:`, error);
+      }
     }
   }
 
@@ -114,5 +130,19 @@ export class OrdersComponent implements OnInit, OnDestroy {
       default:
         return 'status-default';
     }
+  }
+
+  showOrderDetails(order: Order): void {
+    if (order.status === 'completed' && order.urls) {
+      this.selectedOrder = order;
+    }
+  }
+
+  closeOrderDetails(): void {
+    this.selectedOrder = null;
+  }
+
+  openUrl(url: string): void {
+    window.open(url, '_blank');
   }
 }

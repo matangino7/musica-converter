@@ -58,21 +58,31 @@ export class PaypalComponent implements OnInit {
         layout: 'vertical', // Layout options: "vertical" | "horizontal"
       },
       onApprove: (data, actions) => {
+        console.log('Payment approved:', data);
         actions.order.get().then((details: any) => {
-          this.onApprove.emit([data, details]);
+          console.log('Order details:', details);
+          // Emit both the order ID and the details
+          this.onApprove.emit({
+            orderID: data.orderID,
+            details: details
+          });
         });
       },
       onClientAuthorization: (data) => {
+        console.log('Client authorization:', data);
         this.onClientAuthorization.emit(data);
       },
       onCancel: (data, actions) => {
+        console.log('Payment cancelled:', data);
         this.onCancel.emit(data);
       },
       onError: (err) => {
+        console.error('Payment error:', err);
         this.onError.emit(err);
       },
       onClick: (data, actions) => {
-        this.onError.emit(data);
+        console.log('Payment button clicked:', data);
+        this.onClick.emit(data);
       },
     };
   }
